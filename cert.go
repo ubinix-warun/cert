@@ -13,6 +13,8 @@ import (
 	"strings"
 	"text/template"
 	"time"
+
+	"github.com/grantae/certinfo"
 )
 
 var SkipVerify = false
@@ -187,6 +189,16 @@ func (c *Cert) Detail() *x509.Certificate {
 	return c.certChain[0]
 }
 
+func (c *Cert) DetailStr() string {
+
+	result, _ := certinfo.CertificateText(c.certChain[0])
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	return result
+}
+
 func (c *Cert) CertChain() []*x509.Certificate {
 	return c.certChain
 }
@@ -237,6 +249,10 @@ NotAfter:   {{.NotAfter}}
 CommonName: {{.CommonName}}
 SANs:       {{.SANs}}
 Error:      {{.Error}}
+
+=============================
+{{.DetailStr}}
+=============================
 
 {{end}}
 `

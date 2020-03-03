@@ -22,6 +22,19 @@ Or `go get`.
 $ go get github.com/genkiroid/cert/...
 ```
 
+## Build from Source
+
+```
+GO111MODULE=on go mod init github.com/genkiroid/cert
+GO111MODULE=on go mod tidy
+go build cmd/cert/main.go
+
+./main
+
+openssl s_client -connect www.google.com:443 2>/dev/null </dev/null |  sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+
+```
+
 ## Usage
 
 Give domain names as arguments.
